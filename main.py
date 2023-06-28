@@ -191,10 +191,15 @@ def scrape(driver):
             print(f"Getting Page 1 of {pages}", end='\r')
             transform(content, company_name, STARTING_PAGE)
             for i in range(STARTING_PAGE + 1, pages + 1):
-                time.sleep(sleep_time)
-                print(f"Getting Page {i} of {pages}", end='\r')
-                cont = extract(transformed_url, i, driver)
-                transform(cont, company_name, i)
+                if i <= 100:
+                    time.sleep(sleep_time)
+                    print(f"Getting Page {i} of {pages}", end='\r')
+                    cont = extract(transformed_url, i, driver)
+                    transform(cont, company_name, i)
+                else:
+                    df = pd.DataFrame(people)
+                    df.to_csv(f'contacts_{cmpny}.csv', index=False)
+                    break
         cmpny = company.replace('/', '')
         df = pd.DataFrame(people)
         df.to_csv(f'contacts_{cmpny}.csv', index=False)
