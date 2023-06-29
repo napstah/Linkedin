@@ -211,7 +211,7 @@ def scrape(driver):
 def main():
     driver = get_driver()
     scrape(driver)
-    print("Scraping Done.")
+    print("\nScraping Done.")
 
 
 if __name__ == '__main__':
